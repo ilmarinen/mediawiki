@@ -84,7 +84,7 @@ class Bot(object):
         csrf_token = data["query"]["tokens"]["csrftoken"]
 
         current = datetime.datetime.now()
-        current_section = current.strftime("%m-%d-%Y")
+        current_section = current.strftime("%Y-%m")
         data = self.parse(page_title)
         sections = data["parse"]["sections"]
         payload = {
@@ -98,12 +98,16 @@ class Bot(object):
             payload["section"] = "new"
             payload["sectiontitle"] = current_section
         else:
-            last_section = max(sections, key=lambda s: s["number"])
-            if last_section["line"] == current_section:
+            section_dates = map(lambda section: datetime.datetime.strptime(section["line"], "%Y-%m"), sections)
+            last_section_date = max(section_dates + [current])
+            last_section_title = last_section_date.strftime("%Y-%m")
+            last_sections = filter(lambda section: section["line"] == last_section_title, sections)
+            if len(last_sections) > 0:
+                last_section = last_sections[0]
                 payload["section"] = last_section["number"]
             else:
                 payload["section"] = "new"
-                payload["sectiontitle"] = current_section
+                payload["sectiontitle"] = last_section_title
 
         api_url = "{}/api.php?action=edit&format=json".format(self.url)
         response = self.session.post(api_url, data=payload)
