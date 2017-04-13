@@ -85,8 +85,6 @@ class Bot(object):
 
         current = datetime.datetime.now()
         current_section = current.strftime("%Y-%m")
-        data = self.parse(page_title)
-        sections = data["parse"]["sections"]
         payload = {
             "format": "json",
             "utf8": "",
@@ -94,20 +92,27 @@ class Bot(object):
             "title": page_title,
             "token": csrf_token
         }
-        if len(sections) == 0:
+
+        data = self.parse(page_title)
+        if "error" in data and data["error"]["info"] == "The page you specified doesn't exist":
             payload["section"] = "new"
             payload["sectiontitle"] = current_section
         else:
-            section_dates = map(lambda section: datetime.datetime.strptime(section["line"], "%Y-%m"), sections)
-            last_section_date = max(section_dates + [current])
-            last_section_title = last_section_date.strftime("%Y-%m")
-            last_sections = filter(lambda section: section["line"] == last_section_title, sections)
-            if len(last_sections) > 0:
-                last_section = last_sections[0]
-                payload["section"] = last_section["number"]
-            else:
+            sections = data["parse"]["sections"]
+            if len(sections) == 0:
                 payload["section"] = "new"
-                payload["sectiontitle"] = last_section_title
+                payload["sectiontitle"] = current_section
+            else:
+                section_dates = map(lambda section: datetime.datetime.strptime(section["line"], "%Y-%m"), sections)
+                last_section_date = max(section_dates + [current])
+                last_section_title = last_section_date.strftime("%Y-%m")
+                last_sections = filter(lambda section: section["line"] == last_section_title, sections)
+                if len(last_sections) > 0:
+                    last_section = last_sections[0]
+                    payload["section"] = last_section["number"]
+                else:
+                    payload["section"] = "new"
+                    payload["sectiontitle"] = last_section_title
 
         api_url = "{}/api.php?action=edit&format=json".format(self.url)
         response = self.session.post(api_url, data=payload)
