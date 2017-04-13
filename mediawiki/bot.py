@@ -91,7 +91,7 @@ class Bot(object):
             "format": "json",
             "utf8": "",
             "appendtext": "\n*{}".format(url_string),
-            "title": "Sandbox test",
+            "title": page_title,
             "token": csrf_token
         }
         if len(sections) == 0:
