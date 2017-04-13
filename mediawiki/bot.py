@@ -7,7 +7,12 @@ import datetime
 
 class Bot(object):
 
-    def __init__(self, url, username, password):
+    def __init__(self, *args):
+        if len(args) == 3:
+            url, username, password = args
+            self.init(url, username, password)
+
+    def init(self, url, username, password):
         self.url = url
         self.username = username
         self.password = password
