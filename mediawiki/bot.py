@@ -51,8 +51,11 @@ class Bot(object):
                 "password": self.password
             })
         data = response.json()
-        if data["clientlogin"]["status"] == "PASS":
-            print "Logged in as {}".format(data["clientlogin"]["username"])
+        try:
+            if data["clientlogin"]["status"] == "PASS":
+                print "Logged in as {}".format(data["clientlogin"]["username"])
+        except:
+            print "Error parsing response: ", data
 
     def edit(self):
         api_url = "{}/api.php?action=query&meta=tokens&format=json".format(self.url)
