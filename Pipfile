@@ -1,0 +1,12 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+endpoint-0-0-1 = {editable = true,git = "ssh://git@github.com/ilmarinen/endpoint.git"}
+
+[requires]
+python_version = "3.6"

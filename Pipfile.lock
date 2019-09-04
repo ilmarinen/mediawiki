@@ -1,0 +1,26 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "e3e5b726444853f68a364bb08d434ca970c5e1c8f34ece52c051b9e7940984ae"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.6"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "endpoint-0-0-1": {
+            "editable": true,
+            "git": "ssh://git@github.com/ilmarinen/endpoint.git",
+            "ref": "f478a208657e15527a61abfbd6b9808b49aa4b0a"
+        }
+    },
+    "develop": {}
+}
