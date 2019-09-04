@@ -67,8 +67,8 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['requests', 'endpoint'],
-    dependency_links=['git+ssh://git@github.com/ilmarinen/endpoint.git#egg=endpoint'],
+    install_requires=['requests', 'endpoint==0.0.1'],
+    dependency_links=['git+ssh://git@github.com/ilmarinen/endpoint.git#egg=endpoint-0.0.1'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
