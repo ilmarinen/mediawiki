@@ -68,7 +68,7 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=['requests', 'endpoint'],
-    dependency_links=['git@github.com:ilmarinen/endpoint.git#egg=endpoint']
+    dependency_links=['git+ssh://git@github.com/ilmarinen/endpoint.git#egg=endpoint']
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
